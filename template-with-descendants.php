@@ -16,13 +16,14 @@ if (isset ($GLOBALS ['currentPage']))
 
 	echo '<div class="content">';
 	echo apply_filters ('the_content', $page->post_content);
-	echo '</div></div>';
+	echo '</div>';
 
 	$subSubpages = get_pages (array ('parent' => $page->ID, 'sort_column' => 'menu_order'));
 	if ($subSubpages)
 	{
 		showSubpages ($subSubpages, $page->post_name);
 	}
+	echo '</div>'; // container
 }
 else
 {
@@ -47,13 +48,14 @@ else
 
 			echo '<div class="content">';
 			echo apply_filters ('the_content', get_the_content ());
-			echo '</div></div>';
+			echo '</div>';
 
 			$subSubpages = get_pages (array ('parent' => $pageID, 'sort_column' => 'menu_order'));
 			if ($subSubpages)
 			{
 				showSubpages ($subSubpages, $pageName);
 			}
+			echo '</div>';
 		}
 	}
 	else
