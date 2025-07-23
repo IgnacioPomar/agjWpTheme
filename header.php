@@ -20,7 +20,7 @@ $logo_txt = get_bloginfo ('description');
         	<label for="menu-toggle" class="mnuLbl">☰</label>
             <input type="checkbox" id="menu-toggle" class="menu-toggle" />
         	<div id="brand">
-        		<a href="<?=home_url ();?>">
+        		<a href="<?=home_url ();?>/#">
             		<img src="<?=esc_url ($logo_url);?>" alt="Logo" class="site-logo" style="max-height: 80px;">
         			<span class="logoTxt"><?=$logo_txt?></span>
         		</a>
