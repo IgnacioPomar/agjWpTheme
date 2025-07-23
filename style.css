@@ -37,6 +37,12 @@ html {
 }
 
 
+/* Reset box-sizing para facilitar el manejo de paddings y bordes */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+
 /* ------------------------------------------------- */
 /*                      Header                       */
 /* ------------------------------------------------- */
@@ -198,9 +204,61 @@ nav .headMnu li a:hover {
   header .mnuLbl {margin-left: auto;}
 }
 
+
+/* ------------------------------------------------- */
+/*                 subpages flow                     */
+/* ------------------------------------------------- */
+
+/* Contenedor principal de las subpáginas */
+.subpages {
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* separación vertical entre secciones */
+}
+
+/* Estilos base para cada sección */
+.subpages .container {
+  width: 100%;
+  max-width: 960px;    /* ancho máximo para centrar el texto */
+  margin: 0 auto;      /* centra horizontalmente */
+  padding: 60px 20px;  /* espacio interior generoso */
+  background-color: #FAF7F2; /* color crema por defecto (pares) */
+  color: #333;         /* texto oscuro por defecto */
+  text-align: left;    /* texto alineado a la izquierda */
+  font-size: large;
+}
+
+/* Secciones impares: fondo oscuro y texto claro */
+.subpages .container:nth-child(odd) {
+  background-color: #333;  /* gris oscuro */
+  color: #FAF7F2;          /* texto crema */
+}
+
+/* Encabezados centrados */
+.subpages .container h1,
+.subpages .container h2 {
+  text-align: center;
+  margin-top: 0;
+}
+
+/* Adaptación responsive */
+@media (max-width: 768px) {
+  .subpages .container {
+    padding: 40px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .subpages .container {
+    padding: 30px 10px;
+  }
+}
+
 /* ------------------------------------------------- */
 /*                      Hero                       */
 /* ------------------------------------------------- */
+
+.subpages .container#hero
 
 #hero {
   position: relative;
@@ -235,4 +293,5 @@ nav .headMnu li a:hover {
 }
 
 
+#hero h1 em { opacity: 0.5;}
 
