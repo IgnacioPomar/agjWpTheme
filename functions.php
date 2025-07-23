@@ -306,11 +306,28 @@ function showSubpages (&$subpages, $class = "")
 			$template_slug = get_page_template_slug ($subpage->ID);
 			if ($template_slug)
 			{
+
 				$template = locate_template ($template_slug);
 				if ($template)
 				{
 					$GLOBALS ['currentPage'] = &$subpage;
 					include ($template);
+				}
+				else if ('template-zentrygate.php' == $template_slug)
+				{
+
+					$template = ZENTRYGATE_PLUGIN_DIR . 'templates/template-zentrygate.php';
+					if (file_exists ($template))
+					{
+						$GLOBALS ['currentPage'] = &$subpage;
+						include ($template);
+					}
+					else
+						echo "<div class=\"container\" id=\"$spId\">Template not found: $template</div>";
+				}
+				else
+				{
+					echo "<div class=\"container\" id=\"$spId\">Template not found: $template_slug</div>";
 				}
 			}
 			else
