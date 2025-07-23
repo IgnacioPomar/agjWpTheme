@@ -227,6 +227,13 @@ nav .headMnu li a:hover {
   font-size: large;
   overflow: hidden; 
 }
+
+.subpages .container .content{
+  width: 100%;
+  max-width: 960px;    /* ancho máximo para centrar el texto */
+  margin: 0 auto;      /* centra horizontalmente */
+  }
+
 .subpages .content > h1,
 .subpages .content > p {
   padding: 0 40px;
@@ -396,4 +403,57 @@ main > .subpages > .container:nth-child(odd) {
   padding-top: 12px;                /* espacio arriba */
   padding-bottom: 12px;             /* espacio abajo */
   vertical-align: middle;           /* centrar el contenido en el gap */
+}
+
+/* ------------------------------------------------- */
+/*                    Footer                       */
+/* ------------------------------------------------- */
+
+
+/* Footer general */
+.contact-footer {
+  background-color: #c00;      /* rojo intenso */
+  color: #fff;                 /* texto blanco para contraste */
+  text-align: center;          /* centra todos los textos e inline elements */
+  padding: 40px 20px;          /* espacio interior generoso */
+  font-size: 0.9rem;           /* tamaño de texto un poco más pequeño */
+  line-height: 1.6;            /* buena legibilidad */
+}
+
+/* Footer en front page (si necesitas un estilo distinto) */
+.contact-footer.frontpage {
+  /* Por ejemplo, menos padding en la portada */
+  padding: 30px 15px;
+}
+
+/* Párrafos dentro del footer */
+.contact-footer p {
+  margin: 0.5em 0;
+}
+
+/* Enlaces */
+.contact-footer a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 0.5em;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.contact-footer a:hover,
+.contact-footer a:focus {
+  opacity: 0.8;
+}
+
+/* Separador entre enlaces */
+.contact-footer .separator {
+  display: inline-block;
+  margin: 0 0.5em;
+  color: rgba(255,255,255,0.6);
+}
+
+/* Responsive: reduce padding en móviles muy pequeños */
+@media (max-width: 480px) {
+  .contact-footer {
+    padding: 20px 10px;
+  }
 }
