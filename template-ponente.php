@@ -6,7 +6,7 @@ if (isset ($GLOBALS ['currentPage']))
 {
 	$page = &$GLOBALS ['currentPage'];
 
-	formatTeam ($page->ID, $page->post_title, $page->post_name, $page->post_content);
+	formatPonente ($page->ID, $page->post_title, $page->post_name, $page->post_content);
 }
 else
 {
@@ -17,7 +17,7 @@ else
 		// while (have_posts ())
 		{
 			the_post ();
-			formatTeam (get_the_ID (), get_the_title (), get_post_field ('post_name'), get_the_content ());
+			formatPonente (get_the_ID (), get_the_title (), get_post_field ('post_name'), get_the_content ());
 		}
 	}
 	else

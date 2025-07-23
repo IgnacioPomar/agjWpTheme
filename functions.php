@@ -58,6 +58,7 @@ function getMnuAnchored ()
 function habilitar_excerpt_para_paginas ()
 {
 	add_post_type_support ('page', 'excerpt');
+	add_post_type_support ('page', 'custom-fields');
 }
 add_action ('init', 'habilitar_excerpt_para_paginas');
 
@@ -230,6 +231,51 @@ add_action ('admin_enqueue_scripts', function ($hook)
 	JS);
 });
 
+// --------------------------------------------------------------------------------------------------------------
+// ------------------------------------------- Suctom fields -------------------------------------------
+// --------------------------------------------------------------------------------------------------------------
+
+/*
+ * Enable custom fields in the block editor for pages
+ * This allows the use of custom fields in the block editor for pages.
+ * It is optional, but it is useful if you want to use custom fields in the block editor.
+ */
+add_filter ('block_editor_settings_all', function ($settings, $editor_context)
+{
+	$post = isset ($editor_context->post) ? $editor_context->post : null;
+
+	if ($post && $post->post_type === 'page' && 
+	// comprobar plantilla activa
+	get_page_template_slug ($post->ID) === 'template-ponente.php')
+	{
+		$settings ['enableCustomFields'] = true;
+	}
+
+	return $settings;
+}, 10, 2);
+
+add_action ('add_meta_boxes', function ()
+{
+	global $post;
+
+	// Salir si no es página o si no usa template-ponente.php
+	if (! $post || $post->post_type !== 'page' || get_page_template_slug ($post->ID) !== 'template-ponente.php')
+	{
+		return;
+	}
+
+	// Tus dos filtros (claves) y valor por defecto
+	$defaults = [ 'Cargo' => '']; // , 'nombre_completo' => ''
+
+	foreach ($defaults as $key => $value)
+	{
+		if (! metadata_exists ('post', $post->ID, $key))
+		{
+			add_post_meta ($post->ID, $key, $value, false);
+		}
+	}
+});
+
 
 // --------------------------------------------------------------------------------------------------------------
 // ------------------------------------------- Theme custom functions -------------------------------------------
@@ -296,53 +342,29 @@ function showSubpages (&$subpages, $class = "")
  * @param string $postTitle
  *        	Title of the post
  * @param string $postName
- *        	Name of the post
+ *        	Name of the post (Ponente name)
  * @param string $content
  *        	Content of the post
  */
 function formatPonente ($id, $postTitle, $postName, $content)
 {
-	$teamMemberName = $postTitle;
-	$titulo = get_post_meta ($id, 'Titulo', true);
-	$colegiada = get_post_meta ($id, 'Colegiada', true);
-
-	// Prepare the vars
-	$titulo = ($titulo) ? esc_html ($titulo) : '';
-	$colegiada = ($colegiada) ? esc_html ($colegiada) : '';
-
-	echo '<div id="' . $postName . '" class="team-member">';
-
+	$cargo = esc_html (get_post_meta ($id, 'Cargo', true) ?: '');
 	$imgUrl = get_the_post_thumbnail_url ($id, 'large');
+
+	echo '<div id="' . $postName . '" class="ponente">';
+	// Columna izquierda: foto + nombre + cargo
+	echo '<div class="ponente-info-left">';
 	if ($imgUrl)
 	{
-		$webpUrl = $imgUrl . '.webp';
-		echo '<picture><source srcset="' . esc_url ($webpUrl) . '" type="image/webp">';
-		echo '<img class="team-info-image" src="' . $imgUrl . '" alt="' . $teamMemberName . '" height="588">';
-		echo '</picture>';
+		echo '<picture><img class="ponente-info-image" src="' . esc_url ($imgUrl) . '" alt="' . esc_attr ($postTitle) . '"></picture>';
 	}
+	echo '<h3 class="name">' . esc_html ($postTitle) . '</h3>';
+	if ($cargo) echo '<p class="ponente-cargo">' . $cargo . '</p>';
+	echo '</div>';
 
-	$toggleId = 'toggleTeamInfo' . $postName;
-	echo '<input type="checkbox" id="' . $toggleId . '" />';
-	// team member sumary
-	{
-		echo '<label for="' . $toggleId . '" class="team-info-sumary"><content>';
-		echo "<h3>$teamMemberName</h3><p>" . $titulo . '</p><p>' . $colegiada . '</p>';
-		echo '</content></label>';
-	}
-
-	// Team member description
-	{
-		echo '<label for="' . $toggleId . '" class="team-info-details"><content>';
-
-		echo "<h3>$teamMemberName</h3><h4>" . $titulo . '</h4><h4>' . $colegiada . '</h4>';
-
-		echo apply_filters ('the_content', $content);
-		echo '</content></label>';
-	}
-
+	// Columna derecha: biografía
+	echo '<div class="ponente-info-right">';
+	echo apply_filters ('the_content', $content);
+	echo '</div>';
 	echo '</div>';
 }
-
-
-
-

@@ -209,11 +209,10 @@ nav .headMnu li a:hover {
 /*                 subpages flow                     */
 /* ------------------------------------------------- */
 
-/* Contenedor principal de las subpáginas */
 .subpages {
-  display: flex;
-  flex-direction: column;
-  gap: 40px; /* separación vertical entre secciones */
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
 }
 
 /* Estilos base para cada sección */
@@ -314,6 +313,11 @@ main > .subpages > .container:nth-child(odd) {
 #hero h1 em { opacity: 0.5;}
 
 
+/* ------------------------------------------------- */
+/*                  Cuando y donde                  */
+/* ------------------------------------------------- */
+
+
 #cuando-y-donde .mapouter,
 #cuando-y-donde .gmap_canvas {
   position: relative;
@@ -330,3 +334,40 @@ main > .subpages > .container:nth-child(odd) {
   border: 0;
 }
 
+
+/* ------------------------------------------------- */
+/*                    Ponentes                       */
+/* ------------------------------------------------- */
+
+.ponente-info-left {
+  /* Opcional: centra la imagen dentro de la columna */
+  text-align: center;
+}
+
+.ponente-info-image {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;       /* recorta la imagen si no es cuadrada */
+  border-radius: 50%;      /* la convierte en círculo */
+  display: inline-block;   /* para respetar width/height */
+}
+
+.ponente div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.ponente-info-right {
+    width: 260px;
+    padding-left: 20px;
+}
+
+.ponente {
+    display: inline-block;
+    width: 470px;
+    vertical-align: top;
+}
+
+.ponente .ponente-info-left {
+    max-width: 180px;
+}
