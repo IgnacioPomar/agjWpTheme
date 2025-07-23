@@ -368,6 +368,32 @@ main > .subpages > .container:nth-child(odd) {
     vertical-align: top;
 }
 
-.ponente .ponente-info-left {
-    max-width: 180px;
+.ponente .ponente-info-left { max-width: 180px;}
+
+/* ------------------------------------------------- */
+/*                    Ponentes                       */
+/* ------------------------------------------------- */
+/* 1. Tabla con borde exterior gris fino y sin líneas interiores */
+#programa-de-las-jornadas table {
+  border-collapse: separate;        /* para poder usar border-spacing */
+  border-spacing: 0 8px;            /* 0px horizontal, 8px vertical entre filas */
+  border: 1px solid #ccc;           /* borde exterior gris claro */
+  width: 100%;
+}
+
+/* Quitar cualquier borde interior de celdas */
+#programa-de-las-jornadas th,
+#programa-de-las-jornadas td {
+  border: none;
+  padding: 4px 8px;                 /* padding genérico; ajusta a tu gusto */
+}
+
+/* 2. Primera columna de cada fila: fondo amarillo, ancho fijo, con espacio arriba/abajo */
+#programa-de-las-jornadas td:first-child {
+  background-color:#ededa6;
+  color: #000;                  /* texto oscuro para contraste */
+  width: 80px;                      /* ancho fijo */
+  padding-top: 12px;                /* espacio arriba */
+  padding-bottom: 12px;             /* espacio abajo */
+  vertical-align: middle;           /* centrar el contenido en el gap */
 }
