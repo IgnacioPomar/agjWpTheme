@@ -228,7 +228,8 @@ nav .headMnu li a:hover {
   overflow: hidden; 
 }
 
-.subpages .container .content{
+.subpages .container .content,
+.subpages .container .subpages{
   width: 100%;
   max-width: 960px;    /* ancho máximo para centrar el texto */
   margin: 0 auto;      /* centra horizontalmente */
