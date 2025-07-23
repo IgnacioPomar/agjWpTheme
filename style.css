@@ -1,0 +1,198 @@
+/**
+ * Theme Name:        agjWpTheme
+ * Theme URI:         https://agj.madrid
+ * Description:       Tema exclusivo para la abogacía General de la Comunidad de Madrid.
+ * Version:           1.0.1
+ * Author:            Ignacio Pomar Ballestero
+ * License: © 2024 Alternative Experience. All rights reserved.
+ * Tested up to:      6.5
+ * Requires at least: 6.5
+ * Requires PHP:      8.1
+ */
+ 
+/* ------------------------------------------------- */
+/*       Fuentes (deben estar al principio)          */
+/* ------------------------------------------------- */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+ 
+/* ------------------------------------------------- */
+/*              Estilos Generales                    */
+/* ------------------------------------------------- */
+
+html, body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    height: 100%;
+    font-size: 14px;
+    margin: 0px;
+    background-color: #FAF7F2;
+    color: #000000;
+}
+
+
+/* ------------------------------------------------- */
+/*                      Header                       */
+/* ------------------------------------------------- */
+
+/* Variables (ajusta si lo necesitas) */
+:root {
+  --header-height: 60px;
+  --topbar-height: 40px;
+  --bg-color: #000;
+  --text-color: #fff;
+  --font-size: 18px;
+  --container-max-width: 1200px;
+  --gutter: 16px;
+}
+
+
+header ul {
+  list-style: none;
+}
+
+header a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* Header y Topbar */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  width: 100%;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  /*height: var(--header-height);*/
+  padding: 10px;
+}
+main {
+  padding-top: var(--header-height); /* o 40px si no usas variable */
+}
+
+/* barra superior (mnuBg) */
+#mnuBg {
+  height: var(--topbar-height);
+  background-color: var(--bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* contenedor interno */
+#mnuContainer {
+  width: 100%;
+  max-width: var(--container-max-width);
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/*  Brand (logo + texto)  */
+#brand {
+  display: flex;
+  align-items: flex-end; /* alinea por la base del SVG */
+}
+
+.site-logo {
+  max-height:  var(--topbar-height); 
+  height: auto;
+  width: auto;
+  display: inline-block;
+}
+
+.logoTxt {
+  font-size: var(--font-size);
+  margin-left: 0.5em;
+  line-height: 1;
+  color: var(--text-color);
+}
+
+/*  Menú de navegación  */
+nav {
+  /* en desktop se muestra inline-flex */
+}
+
+nav .headMnu {
+  display: flex;
+  gap: 1.5em;
+}
+
+nav .headMnu li a {
+  font-size: var(--font-size);
+  color: var(--text-color);
+  transition: opacity 0.2s ease-in-out;
+}
+
+nav .headMnu li a:hover {
+  opacity: 0.7;
+}
+
+/* Botón hamburguesa y toggle */
+.menu-toggle {
+  display: none;
+}
+
+.mnuLbl {
+  display: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  user-select: none;
+  color: var(--text-color);
+  margin-left: auto;
+}
+
+/* Responsive: móvil */
+@media (max-width: 1100px) {
+  /* mostrar hamburguesa */
+  .mnuLbl {
+    display: block;
+  }
+
+  /* ocultar menú por defecto */
+  nav .headMnu {
+    position: absolute;
+    top: var(--topbar-height);
+    right: 0;
+    background-color: var(--bg-color);
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    padding: 1em;
+    display: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+
+  /* al activar checkbox, mostrar menú */
+  .menu-toggle:checked + #brand + nav .headMnu,
+  .menu-toggle:checked ~ nav .headMnu {
+    display: flex;
+  }
+
+  /* opcional: ajustar enlaces en móvil */
+  nav .headMnu li {
+    margin-bottom: 0.75em;
+  }
+
+  nav .headMnu li:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Hacer que el menu hamburguesa esté a la derecha */
+  header #mnuContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* ya no space-between */
+  }
+  header #brand {order: 1;}
+  header nav {order: 2;}
+  header .mnuLbl {order: 3;}
+  header .mnuLbl {margin-left: auto;}
+}
