@@ -468,14 +468,14 @@ table em strong {
   font-size: x-large;
   font-style: normal;
   font-weight: 600;
-  margin-bottom: -3px;
   display: block;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
 }
 
 table strong {
   font-size: large;
   font-weight: 700;
+  color: #107895;
 }
 
 table em {
