@@ -17,6 +17,7 @@ function add_custom_templates ($templates)
 {
 	$templates ['page-contact-form.php'] = 'Formulario de contacto';
 	$templates ['template-ponente.php'] = 'Ponente';
+	$templates ['template-zentrygate.php'] = 'ZentriGate Inscription Form';
 	$templates ['template-with-descendants.php'] = 'Por defecto con subpáginas';
 	return $templates;
 }
