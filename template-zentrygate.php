@@ -16,7 +16,7 @@ if (isset ($GLOBALS ['currentPage']))
 	echo '<div class="content">';
 
 	$url = get_permalink ($page->ID);
-	echo '<iframe src="' . esc_url ($url) . '" style="width:100%; height:400px; border:none;" loading="lazy" title="Formulario de inscripción"></iframe>';
+	echo '<iframe src="' . esc_url ($url) . '" style="width:100%; height:600px; border:none;" loading="lazy" title="Formulario de inscripción"></iframe>';
 
 	echo '</div></div>';
 }
@@ -24,9 +24,21 @@ else
 {
 	// Carga directa (por iframe), renderizamos el plugin directamente sin header/footer
 	// ob_start ();
+
+	$title = '';
+	if (have_posts ())
+	{
+		// This MUST be a page, so, it'll be only once, we dont need to iterate
+		// while (have_posts ())
+		{
+			the_post ();
+			$title = get_the_title ();
+		}
+	}
+
 	$renderer = new PageRenderer ();
+	$renderer->echoHeader ($title);
 	$renderer->renderPluginPageContents ();
-	// $html = ob_get_clean ();
-	// wp_die ($html, false); // evita headers, wrappers y todo lo demás
+	$renderer->echoFooter ();
 }
 
