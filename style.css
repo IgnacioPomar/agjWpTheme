@@ -15,7 +15,7 @@
 /* ------------------------------------------------- */
 
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@@300;400;600;700&display=swap');
 
  
 /* ------------------------------------------------- */
@@ -455,4 +455,32 @@ main > .subpages > .container:nth-child(odd) {
   .contact-footer {
     padding: 20px 10px;
   }
+}
+
+
+/* ------------------------------------------------- */
+/*                    Programa                       */
+/* ------------------------------------------------- */
+
+
+table em strong {
+  color: #DE0029;
+  font-size: x-large;
+  font-style: normal;
+  font-weight: 600;
+  margin-bottom: -3px;
+  display: block;
+  text-transform: uppercase;
+}
+
+table strong {
+  font-size: large;
+  font-weight: 700;
+}
+
+table em {
+  color: #888884;
+  font-weight: 600;
+  margin-bottom: 0px;
+  display: block;
 }
