@@ -7,7 +7,7 @@
  * License: © 2024 Alternative Experience. All rights reserved.
  * Tested up to:      6.5
  * Requires at least: 6.5
- * Requires PHP:      8.1
+ * Requires PHP:      7.2
  */
  
 /* ------------------------------------------------- */
@@ -216,7 +216,7 @@ nav .headMnu li a:hover {
 }
 
 /* Estilos base para cada sección */
-.subpages .container {
+main .container {
   width: 100%;
   padding: 60px 0px;  /* espacio interior generoso */
   background-color: #FAF7F2; /* color crema por defecto (pares) */
@@ -226,7 +226,7 @@ nav .headMnu li a:hover {
   overflow: hidden; 
 }
 
-.subpages .container .content,
+main .container .content,
 .subpages .container .subpages{
   width: 100%;
   max-width: 960px;    /* ancho máximo para centrar el texto */
