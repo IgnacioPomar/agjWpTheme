@@ -2,7 +2,7 @@
  * Theme Name:        agjWpTheme
  * Theme URI:         https://agj.madrid
  * Description:       Tema exclusivo para la abogacía General de la Comunidad de Madrid.
- * Version:           1.0.4
+ * Version:           1.0.6
  * Author:            Ignacio Pomar Ballestero
  * License: © 2024 Alternative Experience. All rights reserved.
  * Tested up to:      6.5
@@ -16,6 +16,8 @@
 
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700&display=swap');
+
+
 
  
 /* ------------------------------------------------- */
@@ -431,6 +433,13 @@ main > .subpages > .container:nth-child(odd) {
 }
 
 
+#politica-de-cookies table { border-collapse: collapse;  width: 100%;  margin-bottom: 1.5rem;}
+
+#politica-de-cookies th,
+#politica-de-cookies td { border: 1px solid #ccc; padding: 0.75em 1em; text-align: left; vertical-align: top;}
+#politica-de-cookies th { background-color: #000000; color:#fff; font-weight: 600;}
+
+
 /* ------------------------------------------------- */
 /*                    Programa                       */
 /* ------------------------------------------------- */
@@ -457,9 +466,13 @@ main > .subpages > .container:nth-child(odd) {
 
 
 .jornada table em strong {color: #DE0029; font-size: x-large; font-style: normal; font-weight: 600; display: block;}
+.jornada table strong em {display: inline-block; font-size: small;}
+.jornada table em sup {font-size: small;}
 
 .jornada table {border-top: 1px solid #eee; width: 100%; border-collapse: collapse; margin-top: 1rem; }
 .jornada table em { color: #B6B6B6; font-size: large; font-weight: 600; margin-bottom: 0px;  display: block;}
+
+.zg-cookie-form blockquote {font-style: italic; font-size: 0.85em; margin: 0; padding-left: 1em;  border-left: 3px solid #ccc; color: #555;}
 
 
 
