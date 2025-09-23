@@ -3,8 +3,8 @@
  * Template Name: Zentrygate Inscription Form
  * Description: Shows the page content and appends the plugin form.
  */
-require_once ZENTRYGATE_PLUGIN_DIR . 'ZentryGate/Auth.php';
-require_once ZENTRYGATE_PLUGIN_DIR . 'ZentryGate/PageRenderer.php';
+require_once ZENTRYGATE_DIR . 'ZentryGate/Auth.php';
+require_once ZENTRYGATE_DIR . 'ZentryGate/PageRenderer.php';
 
 use ZentryGate\PageRenderer;
 if (isset ($GLOBALS ['currentPage']))

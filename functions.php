@@ -317,7 +317,7 @@ function showSubpages (&$subpages, $class = "")
 				else if ('template-zentrygate.php' == $template_slug)
 				{
 
-					$template = ZENTRYGATE_PLUGIN_DIR . 'templates/template-zentrygate.php';
+					$template = ZENTRYGATE_DIR . 'templates/template-zentrygate.php';
 					if (file_exists ($template))
 					{
 						$GLOBALS ['currentPage'] = &$subpage;
