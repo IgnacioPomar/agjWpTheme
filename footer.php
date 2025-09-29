@@ -12,7 +12,7 @@
 	{
 		$url = get_permalink ($legalPageId);
 		$title = get_the_title ($legalPageId);
-		echo "'<a href=\"$url\">$title</a>";
+		echo "<a href=\"$url\">$title</a>";
 
 		$separator = '<span class="separator">|</span>';
 	}
@@ -20,8 +20,8 @@
 	if ($privacyPageId)
 	{
 		$url = get_permalink ($privacyPageId);
-		$title = get_the_title ($legalPageId);
-		echo $separator . "'<a href=\"$url\">$title</a>";
+		$title = get_the_title ($privacyPageId);
+		echo $separator . "<a href=\"$url\">$title</a>";
 
 		$separator = '<span class="separator">|</span>';
 	}
@@ -29,8 +29,8 @@
 	if ($cookiePageId)
 	{
 		$url = get_permalink ($cookiePageId);
-		$title = get_the_title ($legalPageId);
-		echo $separator . "'<a href=\"$url\">$title</a>";
+		$title = get_the_title ($cookiePageId);
+		echo $separator . "<a href=\"$url\">$title</a>";
 	}
 
 	echo '</p>';
