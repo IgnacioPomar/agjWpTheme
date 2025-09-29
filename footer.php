@@ -11,7 +11,8 @@
 	if ($legalPageId)
 	{
 		$url = get_permalink ($legalPageId);
-		echo '<a href="' . $url . '">Aviso</a>';
+		$title = get_the_title ($legalPageId);
+		echo "'<a href=\"$url\">$title</a>";
 
 		$separator = '<span class="separator">|</span>';
 	}
@@ -19,7 +20,8 @@
 	if ($privacyPageId)
 	{
 		$url = get_permalink ($privacyPageId);
-		echo $separator . '<a href="' . $url . '">Po&iacute;tica de privacidad</a>';
+		$title = get_the_title ($legalPageId);
+		echo $separator . "'<a href=\"$url\">$title</a>";
 
 		$separator = '<span class="separator">|</span>';
 	}
@@ -27,7 +29,8 @@
 	if ($cookiePageId)
 	{
 		$url = get_permalink ($cookiePageId);
-		echo $separator . '<a href="' . $url . '">Po&iacute;tica de cookies</a>';
+		$title = get_the_title ($legalPageId);
+		echo $separator . "'<a href=\"$url\">$title</a>";
 	}
 
 	echo '</p>';

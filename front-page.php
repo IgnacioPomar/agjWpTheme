@@ -3,7 +3,7 @@ setlocale (LC_ALL, 'es_ES.utf8');
 
 get_header ();
 
-$themeBaseUri = get_template_directory_uri ();
+// $themeBaseUri = get_template_directory_uri ();
 
 ?>
 
