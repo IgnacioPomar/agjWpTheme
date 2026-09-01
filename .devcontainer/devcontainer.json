@@ -1,0 +1,48 @@
+{
+    "name": "agjWpTheme",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "wordpress",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "workspaceFolder": "/workspace",
+    "shutdownAction": "stopCompose",
+    "remoteUser": "vscode",
+
+    "forwardPorts": [
+        9080
+    ],
+
+    "portsAttributes": {
+        "9080": {
+            "label": "WordPress",
+            "onAutoForward": "notify"
+        }
+    },
+
+    "customizations": {
+        "vscode": {
+
+            "extensions": [
+                "bmewburn.vscode-intelephense-client",
+                "xdebug.php-debug",
+                "esbenp.prettier-vscode",
+                "editorconfig.editorconfig",
+
+ // Artificial Intelligence
+        "anthropic.claude-code",
+        "openai.chatgpt"
+
+            ],
+
+            "settings": {
+"editor.formatOnSave": true,
+                "php.validate.executablePath": "/usr/local/bin/php",
+
+// Claude Code: start new conversations in Plan mode; other modes
+        // (Auto, etc.) stay switchable from the mode picker.
+        "claudeCode.initialPermissionMode": "plan"
+            }
+        }
+    },
+
+    "postCreateCommand": "bash /workspace/.devcontainer/setup.sh"
+}

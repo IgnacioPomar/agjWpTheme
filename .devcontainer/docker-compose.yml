@@ -1,0 +1,75 @@
+services:
+  wordpress:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+
+    ports:
+      - "9080:80"
+
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+
+      SSH_AUTH_SOCK: /ssh-agent
+
+      WORDPRESS_DEBUG: "1"
+
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_DEBUG_LOG', true);
+        define('WP_DEBUG_DISPLAY', true);
+        define('SCRIPT_DEBUG', true);
+
+    volumes:
+      # Persistencia del resto de WordPress: core, plugins, uploads...
+      - wordpress-data:/var/www/html
+
+      # Ruta de trabajo
+      - ..:/workspace
+
+      # Código del tema
+      - ../agjWpTheme:/var/www/html/wp-content/themes/agjWpTheme
+
+      # Artificial Intelligence
+      - /workspace/shared/claude/dir:/home/vscode/.claude:rw
+      # Shadow the conversations: license/settings stay shared, transcripts stay per-workspace.
+      - /workspace/shared/claude/wptheme:/home/vscode/.claude/projects:rw
+      - /workspace/shared/openai/codex:/home/vscode/.codex:rw
+
+      # SSH & GIT
+      - ${HOME}/.ssh/ssh-agent.sock:/ssh-agent
+      - ${HOME}/.ssh/id_ed25519.pub:/home/vscode/.ssh/id_ed25519.pub:ro
+      - ${HOME}/.ssh/known_hosts:/home/vscode/.ssh/known_hosts:rw
+      - ${HOME}/.gitconfig:/home/vscode/.gitconfig:ro
+      - /workspace/shared/git/hooks:/home/vscode/git-hooks:ro
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  db:
+    image: mariadb:11
+
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: wordpress
+      MARIADB_ROOT_PASSWORD: root
+
+    volumes:
+      - db-data:/var/lib/mysql
+
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  wordpress-data:
+  db-data:
