@@ -53,6 +53,21 @@ if [ "${CURRENT_THEME}" != "agjWpTheme" ]; then
 fi
 
 
+echo "Comprobando ZentryGate..."
+
+if ! wp plugin is-active zentrygate \
+    --path="${WP_PATH}" \
+    --allow-root 2>/dev/null
+then
+
+    echo "Activando ZentryGate..."
+
+    wp plugin activate zentrygate \
+        --path="${WP_PATH}" \
+        --allow-root
+fi
+
+
 echo
 echo "=========================================="
 echo

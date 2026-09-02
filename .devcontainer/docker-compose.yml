@@ -32,6 +32,9 @@ services:
       # Código del tema
       - ../agjWpTheme:/var/www/html/wp-content/themes/agjWpTheme
 
+      # Código del plugin ZentryGate
+      - ../ZentryGate:/var/www/html/wp-content/plugins/zentrygate
+
       # Artificial Intelligence
       - /workspace/shared/claude/dir:/home/vscode/.claude:rw
       # Shadow the conversations: license/settings stay shared, transcripts stay per-workspace.

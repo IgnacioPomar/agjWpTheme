@@ -1,0 +1,3 @@
+[submodule "zentrygate"]
+	path = ZentryGate
+	url = git@github.com:IgnacioPomar/ZentryGate.git
