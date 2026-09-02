@@ -5,6 +5,14 @@ set -e
 WP_PATH="/var/www/html"
 
 
+echo "Corrigiendo permisos de directorios de IA montados..."
+
+sudo chown -R vscode:vscode \
+    /home/vscode/.claude \
+    /home/vscode/.codex \
+    2>/dev/null || true
+
+
 echo "Esperando a WordPress..."
 
 until [ -f "${WP_PATH}/wp-load.php" ]; do
