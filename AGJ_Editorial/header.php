@@ -15,7 +15,6 @@ $logo_url = $logo_id ? wp_get_attachment_image_url ($logo_id, 'full') : '';
 	<?=wp_body_open ();?>
     <header>
         <div id="mnuBg"><div id="mnuContainer">
-        	<label for="menu-toggle" class="mnuLbl">☰</label>
             <input type="checkbox" id="menu-toggle" class="menu-toggle" />
         	<div id="brand">
         		<a href="<?=home_url ();?>/#">
@@ -40,4 +39,5 @@ $logo_url = $logo_id ? wp_get_attachment_image_url ($logo_id, 'full') : '';
            
         </div></div>
     </header>
+    <label for="menu-toggle" id="mnuToggleFixed" class="mnuLbl">☰</label>
     <main>

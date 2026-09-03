@@ -9,6 +9,7 @@ add_theme_support ('title-tag');
 function AGJ_WpTheme_enqueue_styles ()
 {
 	wp_enqueue_style ('AGJ_WpTheme-style', get_stylesheet_uri (), array (), wp_get_theme ()->get ('Version'), 'all');
+	wp_enqueue_script ('AGJ_WpTheme-header-scroll', get_template_directory_uri () . '/assets/js/header-scroll.js', array (), wp_get_theme ()->get ('Version'), true);
 }
 add_action ('wp_enqueue_scripts', 'AGJ_WpTheme_enqueue_styles');
 

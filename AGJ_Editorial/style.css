@@ -39,7 +39,7 @@
 html, body {
     font-family: var(--agj-sans);
     font-weight: 400;
-    height: 100%;
+    min-height: 100%;
     font-size: 14px;
     margin: 0px;
     background-color: var(--agj-cream);
@@ -99,6 +99,19 @@ header {
   background-color: var(--bg-color);
   color: var(--text-color);
   padding: 0;
+  transition: transform 0.25s ease;
+}
+
+/* Ocultar la cabecera al hacer scroll hacia abajo (clase controlada por
+   header-scroll.js). Reaparece con cualquier scroll hacia arriba, ver JS. */
+header.site-header--hidden {
+  transform: translateY(-100%);
+}
+
+/* Con el menú móvil abierto, la cabecera nunca debe ocultarse: si no, el
+   desplegable (que vive dentro del header) desaparecería con ella. */
+header:has(.menu-toggle:checked) {
+  transform: none !important;
 }
 main {
   padding-top: 0;
@@ -205,9 +218,21 @@ nav .headMnu li:last-child a:hover {
 
 /* Responsive: móvil */
 @media (max-width: 1100px) {
-  /* mostrar hamburguesa */
+  /* mostrar hamburguesa, fija y siempre sobreimpresa, independiente de que
+     la cabecera esté oculta o visible */
   .mnuLbl {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: var(--topbar-height);
+    padding: 0 var(--gutter);
+    margin-left: 0;
+    z-index: 1000;
+    background-color: var(--bg-color);
+    border-radius: 0 0 0 8px;
   }
 
   /* ocultar menú por defecto */
@@ -247,8 +272,6 @@ nav .headMnu li:last-child a:hover {
   }
   header #brand {order: 1;}
   header nav {order: 2;}
-  header .mnuLbl {order: 3;}
-  header .mnuLbl {margin-left: auto;}
 }
 
 
