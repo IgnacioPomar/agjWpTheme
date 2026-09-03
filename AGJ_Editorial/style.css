@@ -521,6 +521,19 @@ main .container .content,
   color: var(--agj-ink);
 }
 
+/* El título "pegado" (sticky) al hacer scroll solo tiene sentido cuando hay
+   dos columnas lado a lado; en pantallas estrechas el layout pasa a una sola
+   columna y ese sticky hacía que el h1 quedase superpuesto sobre el texto. */
+@media (max-width: 900px) {
+  #informacion .content {
+    grid-template-columns: 1fr;
+  }
+  #informacion .info-head {
+    position: static;
+    top: auto;
+  }
+}
+
 
 /* ------------------------------------------------- */
 /*                  Cuando y donde                  */
