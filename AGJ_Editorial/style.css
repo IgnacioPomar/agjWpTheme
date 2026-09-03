@@ -339,7 +339,15 @@ main .container .content,
 
 
 
-#hero {
+/* #hero es un ".container" más: se deja a ancho completo (línea/fondo de
+   main .container sin partir), solo se anula su padding vertical porque
+   aquí el espaciado lo dan las columnas internas, no la sección. El grid de
+   imagen+texto y su límite a --container-max-width viven en ".container-inner"
+   (ver showSubpages()), igual que ".content" hace por sí solo en el resto de
+   secciones cuando no hay imagen destacada de por medio. */
+#hero { padding: 0; }
+
+#hero .container-inner {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   align-items: stretch;
@@ -347,7 +355,6 @@ main .container .content,
   max-width: var(--container-max-width);
   margin: 0 auto;
   padding: 0 var(--gutter);
-  border-bottom: 1px solid var(--agj-line);
 }
 
 #hero .featured-image {
@@ -514,7 +521,7 @@ main .container .content,
   position: relative;
   width: 100%;
   max-width: 100%;
-  height: 310px;
+  height: clamp(280px, 55vw, 420px);
   overflow: hidden;
 }
 

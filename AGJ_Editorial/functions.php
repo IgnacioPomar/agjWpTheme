@@ -335,9 +335,15 @@ function showSubpages (&$subpages, $class = "")
 			{
 				echo "<div class=\"container\" id=\"$spId\">";
 
-				// Si la subpágina tiene una imagen destacada, mostrarla
-				if (has_post_thumbnail ($subpage->ID))
+				// Si la subpágina tiene una imagen destacada, va junto al
+				// contenido dentro de un wrapper propio: así el ".container"
+				// exterior sigue a ancho completo (línea/fondo de sección) y
+				// solo ese wrapper interior queda centrado a --container-max-width,
+				// igual que ".content" hace por sí solo cuando no hay imagen.
+				$hasThumbnail = has_post_thumbnail ($subpage->ID);
+				if ($hasThumbnail)
 				{
+					echo '<div class="container-inner">';
 					echo '<div class="featured-image">' . get_the_post_thumbnail ($subpage->ID, 'full') . '</div>';
 				}
 
@@ -346,7 +352,11 @@ function showSubpages (&$subpages, $class = "")
 
 				echo '<div class="content">';
 				echo $content;
-				echo '</div></div>';
+				echo '</div>';
+
+				if ($hasThumbnail) echo '</div>';
+
+				echo '</div>';
 			}
 		}
 		echo '</div>';
