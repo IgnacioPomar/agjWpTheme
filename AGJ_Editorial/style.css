@@ -740,10 +740,6 @@ main .container .content,
   gap: 14px;
 }
 
-.footer-brand .site-logo {
-  filter: brightness(0) invert(1);
-}
-
 .footer-brand .logoTxt {
   color: #fff;
 }
