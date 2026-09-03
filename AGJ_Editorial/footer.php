@@ -4,6 +4,7 @@
 	$logo_id = get_option ('agj_logo_id');
 	$logo_url = $logo_id ? wp_get_attachment_image_url ($logo_id, 'full') : '';
 	?>
+	<div class="footer-inner">
 	<div class="footer-top">
 		<div class="footer-brand">
 			<img src="<?=esc_url ($logo_url);?>" alt="Logo" class="site-logo">
@@ -41,6 +42,7 @@
 	</div>
 
 	<p class="footer-legal">&copy; <?=date ("Y")?> Alternative Experience&reg;. Todos los derechos reservados.</p>
+	</div>
 	</div>
 	<?php
 	wp_footer ();

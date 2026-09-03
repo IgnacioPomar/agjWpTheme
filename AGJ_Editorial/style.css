@@ -698,11 +698,13 @@ main .container .content,
 /* ------------------------------------------------- */
 
 
-/* Footer general */
+/* Footer general: el fondo ocupa todo el ancho, pero el contenido se centra
+   en la misma columna (--container-max-width/--gutter) que el resto de
+   secciones de la página. */
 .contact-footer {
   background-color: var(--agj-red);
   color: #fff;                 /* texto blanco para contraste */
-  padding: clamp(36px, 6vw, 56px) clamp(16px, 4vw, 32px) 32px;
+  padding: clamp(36px, 6vw, 56px) 0 32px;
   font-size: 0.9rem;           /* tamaño de texto un poco más pequeño */
   line-height: 1.6;            /* buena legibilidad */
 }
@@ -710,7 +712,14 @@ main .container .content,
 /* Footer en front page (si necesitas un estilo distinto) */
 .contact-footer.frontpage {
   /* Por ejemplo, menos padding en la portada */
-  padding: 30px 15px;
+  padding: 30px 0;
+}
+
+.footer-inner {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
 }
 
 /* Fila superior: logo+texto a la izquierda, enlaces a la derecha, con línea
@@ -772,7 +781,7 @@ main .container .content,
 /* Responsive: reduce padding en móviles muy pequeños */
 @media (max-width: 480px) {
   .contact-footer {
-    padding: 20px 10px;
+    padding: 20px 0;
   }
 }
 
