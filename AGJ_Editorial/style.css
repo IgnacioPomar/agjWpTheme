@@ -1,0 +1,909 @@
+/**
+ * Theme Name:        AGJ_Editorial
+ * Theme URI:         https://agj.madrid
+ * Description:       Tema exclusivo para la abogacía General de la Comunidad de Madrid.
+ * Version:           0.1.0
+ * Author:            Ignacio Pomar Ballestero
+ * License: © 2024 Alternative Experience. All rights reserved.
+ * Tested up to:      6.5
+ * Requires at least: 6.5
+ * Requires PHP:      7.2
+ */
+ 
+/* ------------------------------------------------- */
+/*       Fuentes (deben estar al principio)          */
+/* ------------------------------------------------- */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Archivo:wght@400;500;600&display=swap');
+
+
+
+ 
+/* ------------------------------------------------- */
+/*              Estilos Generales                    */
+/* ------------------------------------------------- */
+
+:root {
+  --agj-red: #B4131C;
+  --agj-red-hover: #D9202A;
+  --agj-cream: #FAF9F7;
+  --agj-ink: #1A1A1A;
+  --agj-ink-soft: #4A4640;
+  --agj-muted: #8A847C;
+  --agj-line: #E2DED8;
+  --agj-serif: 'Source Serif 4', Georgia, serif;
+  --agj-sans: Archivo, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+html, body {
+    font-family: var(--agj-sans);
+    font-weight: 400;
+    height: 100%;
+    font-size: 14px;
+    margin: 0px;
+    background-color: var(--agj-cream);
+    color: var(--agj-ink);
+    -webkit-font-smoothing: antialiased;
+}
+
+html { scroll-behavior: smooth;}
+
+a { color: var(--agj-red); }
+a:hover { color: var(--agj-ink); }
+
+.subpages h1 { font-size: xxx-large;}
+
+
+/* Reset box-sizing para facilitar el manejo de paddings y bordes */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+
+/* ------------------------------------------------- */
+/*                      Header                       */
+/* ------------------------------------------------- */
+
+/* Variables (ajusta si lo necesitas) */
+:root {
+  --header-height: 58px;
+  --topbar-height: 58px;
+  --bg-color: #111111;
+  --text-color: #FFFFFF;
+  --font-size: 15px;
+  --container-max-width: 1180px;
+  --gutter: clamp(16px, 4vw, 32px);
+}
+
+
+header ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* Header y Topbar */
+header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 0;
+}
+main {
+  padding-top: 0;
+}
+
+/* barra superior (mnuBg) */
+#mnuBg {
+  min-height: var(--topbar-height);
+  background-color: var(--bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* contenedor interno */
+#mnuContainer {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 12px var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(12px, 3vw, 32px);
+  flex-wrap: wrap;
+}
+
+/*  Brand (logo + texto)  */
+#brand {
+  display: flex;
+  align-items: center;
+}
+
+#brand a {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.site-logo {
+  max-height: 34px;
+  height: auto;
+  width: auto;
+  display: inline-block;
+}
+
+.logoTxt {
+  font-family: var(--agj-serif);
+  font-size: clamp(15px, 3.6vw, 17px);
+  letter-spacing: 0.01em;
+  margin-left: 0;
+  line-height: 1;
+  color: var(--text-color);
+}
+
+
+
+nav .headMnu {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2.6vw, 30px);
+  flex-wrap: wrap;
+}
+
+nav .headMnu li a {
+  font-size: 13.5px;
+  letter-spacing: 0.02em;
+  color: #D6D2CC;
+  transition: color 0.2s ease-in-out;
+}
+
+nav .headMnu li a:hover {
+  color: #fff;
+  opacity: 1;
+}
+
+/* Último enlace del menú (Inscripción): botón destacado */
+nav .headMnu li:last-child a {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 18px;
+  background: var(--agj-red);
+  color: #fff;
+}
+
+nav .headMnu li:last-child a:hover {
+  background: var(--agj-red-hover);
+  color: #fff;
+}
+
+/* Botón hamburguesa y toggle */
+.menu-toggle {
+  display: none;
+}
+
+.mnuLbl {
+  display: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  user-select: none;
+  color: var(--text-color);
+  margin-left: auto;
+}
+
+/* Responsive: móvil */
+@media (max-width: 1100px) {
+  /* mostrar hamburguesa */
+  .mnuLbl {
+    display: block;
+  }
+
+  /* ocultar menú por defecto */
+  nav .headMnu {
+    position: absolute;
+    top: var(--topbar-height);
+    right: 0;
+    background-color: var(--bg-color);
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    padding: 1em;
+    display: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+
+  /* al activar checkbox, mostrar menú */
+  .menu-toggle:checked + #brand + nav .headMnu,
+  .menu-toggle:checked ~ nav .headMnu {
+    display: flex;
+  }
+
+  /* opcional: ajustar enlaces en móvil */
+  nav .headMnu li {
+    margin-bottom: 0.75em;
+  }
+
+  nav .headMnu li:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Hacer que el menu hamburguesa esté a la derecha */
+  header #mnuContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* ya no space-between */
+  }
+  header #brand {order: 1;}
+  header nav {order: 2;}
+  header .mnuLbl {order: 3;}
+  header .mnuLbl {margin-left: auto;}
+}
+
+
+/* ------------------------------------------------- */
+/*                 subpages flow                     */
+/* ------------------------------------------------- */
+
+.subpages {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
+/* Estilos base para cada sección */
+main .container {
+  width: 100%;
+  padding: clamp(48px, 8vw, 96px) 0px;
+  background-color: var(--agj-cream);
+  color: var(--agj-ink);
+  text-align: left;
+  font-size: 16px;
+  border-bottom: 1px solid var(--agj-line);
+  overflow: hidden;
+}
+
+main .container .content,
+.subpages .container .subpages{
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  }
+
+.subpages .content > h1,
+.subpages .content > p {
+  padding: 0;
+}
+
+/* Encabezados: alineados a la izquierda, tipografía serif como el resto del diseño */
+.subpages .container h1,
+.subpages .container h2 {
+  text-align: left;
+  margin-top: 0;
+  font-family: var(--agj-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Antetítulo rojo ("Información", "Programa"…) generado por el tema
+   delante del título de cada sección — ver decorateSubpageContent() */
+.subpages .container .section-eyebrow {
+  margin: 0 0 14px;
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--agj-red);
+  font-weight: 600;
+}
+
+.subpages .container  figure.wp-block-image {
+  margin: 0 auto; /* centra la imagen */
+  max-width: 100%; /* asegura que no se salga del contenedor */
+}
+.subpages .container .wp-block-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+
+/* Adaptación responsive */
+@media (max-width: 768px) {
+  .subpages .container {
+    padding: 40px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .subpages .container {
+    padding: 30px 10px;
+  }
+}
+
+/* ------------------------------------------------- */
+/*                      Hero                       */
+/* ------------------------------------------------- */
+
+
+
+#hero {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  align-items: stretch;
+  min-height: clamp(420px, 60vh, 560px);
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  border-bottom: 1px solid var(--agj-line);
+}
+
+#hero .featured-image {
+  position: relative;
+  order: 2;
+  min-height: clamp(240px, 42vw, 560px);
+  background: repeating-linear-gradient(115deg, #EFEBE4 0 9px, #E5DFD6 9px 18px);
+}
+#hero .featured-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Columna de texto: sin overlay, alineada a la izquierda */
+#hero .content {
+  order: 1;
+  width: 100%;
+  max-width: none;
+  background: transparent;
+  color: var(--agj-ink);
+  padding: clamp(48px, 8vw, 96px) clamp(0px, 5vw, 56px) clamp(40px, 6vw, 96px) 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+  position: relative;
+}
+
+.subpages #hero h1 {
+  font-size: clamp(38px, 8vw, 60px);
+  line-height: 1.05;
+  text-align: left;
+  text-wrap: balance;
+}
+
+/* Antetítulo "Jornadas 2026 · II Edición" */
+#hero .hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 28px;
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--agj-red);
+  font-weight: 600;
+}
+#hero .hero-eyebrow::before {
+  content: "";
+  width: 34px;
+  height: 2px;
+  background: var(--agj-red);
+  display: inline-block;
+  flex: none;
+}
+
+/* Subtítulo (párrafo justo debajo del h1) */
+#hero h1 + p {
+  margin: 28px 0 0;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--agj-ink-soft);
+  max-width: 34ch;
+}
+
+/* Bloque de datos "Fechas / Sede" */
+#hero .hero-meta {
+  display: flex;
+  gap: 0;
+  margin: 44px 0 0;
+  border-top: 1px solid var(--agj-line);
+}
+#hero .hero-meta-item {
+  padding: 20px 32px 0 0;
+  border-right: 1px solid var(--agj-line);
+}
+#hero .hero-meta-item:last-child {
+  border-right: 0;
+  padding-left: 32px;
+}
+#hero .hero-meta-label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--agj-muted);
+  margin-bottom: 6px;
+}
+#hero .hero-meta-value {
+  font-family: var(--agj-serif);
+  font-size: 20px;
+}
+
+
+/* ------------------------------------------------- */
+/*                    Información                    */
+/* ------------------------------------------------- */
+
+/* Columna de título pegada a la izquierda + columna de párrafos a la derecha.
+   El tema envuelve el título en .info-head y los párrafos en .info-body
+   (ver decorateSubpageContent) sin cambiar ni una palabra del contenido. */
+#informacion .content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(28px, 5vw, 64px);
+  align-items: start;
+}
+
+#informacion .info-head {
+  position: sticky;
+  top: 96px;
+  align-self: start;
+}
+#informacion .info-head h1 {
+  margin: 0;
+  font-size: clamp(26px, 5.5vw, 34px);
+  line-height: 1.15;
+}
+
+#informacion .info-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 66ch;
+}
+#informacion .info-body p {
+  margin: 0;
+  color: var(--agj-ink-soft);
+  font-size: 16px;
+  line-height: 1.75;
+}
+#informacion .info-body p:first-child {
+  font-family: var(--agj-serif);
+  font-size: clamp(18px, 4vw, 21px);
+  line-height: 1.55;
+  color: var(--agj-ink);
+}
+
+
+/* ------------------------------------------------- */
+/*                  Cuando y donde                  */
+/* ------------------------------------------------- */
+
+/* .cyd-text / .cyd-map las añade el tema (ver decorateSubpageContent) para
+   separar el bloque de texto del mapa en dos columnas sin tocar el contenido */
+#cuando-y-donde .content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(28px, 5vw, 64px);
+  align-items: start;
+}
+
+#cuando-y-donde .cyd-map {
+  border: 1px solid var(--agj-line);
+}
+
+#cuando-y-donde .mapouter,
+#cuando-y-donde .gmap_canvas {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: 310px;
+  overflow: hidden;
+}
+
+/* El iframe debe ocupar todo el ancho del wrapper */
+#cuando-y-donde .gmap_canvas iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Cajas "Dirección / Metro" — bloques estándar con clases adicionales
+   info-box / info-box-label / info-box-value añadidos al contenido de la página */
+#cuando-y-donde .info-box-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  background: var(--agj-line);
+  border-top: 1px solid var(--agj-line);
+  border-left: 1px solid var(--agj-line);
+  margin-top: 32px;
+}
+#cuando-y-donde .info-box {
+  background: var(--agj-cream);
+  padding: 20px;
+}
+#cuando-y-donde .info-box-label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--agj-muted);
+  margin-bottom: 8px;
+}
+#cuando-y-donde .info-box-value {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+
+/* ------------------------------------------------- */
+/*                    Ponentes                       */
+/* ------------------------------------------------- */
+
+.ponente-info-left {
+  /* Opcional: centra la imagen dentro de la columna */
+  text-align: center;
+}
+
+.ponente-info-image {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;       /* recorta la imagen si no es cuadrada */
+  border-radius: 50%;      /* la convierte en círculo */
+  display: inline-block;   /* para respetar width/height */
+}
+
+.ponente div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.ponente-info-right {
+    width: 260px;
+    padding-left: 20px;
+}
+
+.ponente {
+    display: inline-block;
+    width: 470px;
+    vertical-align: top;
+}
+
+.ponente .ponente-info-left { max-width: 180px;}
+
+
+/* ------------------------------------------------- */
+/*                    Inscripción                    */
+/* ------------------------------------------------- */
+
+#inscripcion {
+  background: var(--agj-ink);
+  color: var(--agj-cream);
+}
+
+#inscripcion .content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+}
+
+#inscripcion .content > .section-eyebrow {
+  grid-column: 1;
+  color: #E58C93;
+}
+
+/* Todos los párrafos van en la columna de texto (col. 1); la tarjeta ocupa
+   la columna 2 (ver .inscripcion-card más abajo). */
+#inscripcion .content > p:not(.section-eyebrow) {
+  grid-column: 1;
+  max-width: 52ch;
+  margin: 0 0 18px;
+  color: #C9C4BD;
+  font-size: 16.5px;
+  line-height: 1.7;
+}
+#inscripcion .content > p:empty { display: none; margin: 0; }
+
+/* El párrafo justo después del antetítulo ("¿Quieres asistir…?") hace de
+   título de sección hasta que la página tenga un bloque de encabezado propio */
+#inscripcion .content > .section-eyebrow + p {
+  font-family: var(--agj-serif);
+  font-weight: 400;
+  font-size: clamp(28px, 6vw, 38px);
+  line-height: 1.15;
+  color: #fff;
+  max-width: none;
+  margin-bottom: 20px;
+}
+#inscripcion .content > .section-eyebrow + p strong { font-weight: inherit; }
+
+/* Tarjeta estática — futuro hueco de template-zentrygate.php */
+#inscripcion .inscripcion-card {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  align-self: center;
+  border: 1px solid #3A3733;
+  padding: 32px;
+}
+#inscripcion .inscripcion-card-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #C9C4BD;
+}
+#inscripcion .inscripcion-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #E58C93;
+  flex: none;
+}
+#inscripcion .inscripcion-card-text {
+  margin: 0 0 22px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #9C978F;
+}
+#inscripcion .inscripcion-card-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+#inscripcion .inscripcion-card-form input {
+  flex: 1 1 200px;
+  padding: 13px 15px;
+  background: #242220;
+  border: 1px solid #3A3733;
+  color: var(--agj-cream);
+  font-family: var(--agj-sans);
+  font-size: 15px;
+}
+#inscripcion .inscripcion-card-form button {
+  padding: 13px 22px;
+  background: var(--agj-red);
+  color: #fff;
+  border: 0;
+  font-family: var(--agj-sans);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: not-allowed;
+}
+
+
+/* ------------------------------------------------- */
+/*                    Footer                       */
+/* ------------------------------------------------- */
+
+
+/* Footer general */
+.contact-footer {
+  background-color: var(--agj-red);
+  color: #fff;                 /* texto blanco para contraste */
+  padding: clamp(36px, 6vw, 56px) clamp(16px, 4vw, 32px) 32px;
+  font-size: 0.9rem;           /* tamaño de texto un poco más pequeño */
+  line-height: 1.6;            /* buena legibilidad */
+}
+
+/* Footer en front page (si necesitas un estilo distinto) */
+.contact-footer.frontpage {
+  /* Por ejemplo, menos padding en la portada */
+  padding: 30px 15px;
+}
+
+/* Fila superior: logo+texto a la izquierda, enlaces a la derecha, con línea
+   separadora bajo ambos antes del copyright. */
+.footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding-bottom: 28px;
+  border-bottom: 1px solid rgba(255,255,255,0.28);
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.footer-brand .site-logo {
+  filter: brightness(0) invert(1);
+}
+
+.footer-brand .logoTxt {
+  color: #fff;
+}
+
+/* Párrafos dentro del footer */
+.contact-footer p {
+  margin: 0;
+}
+
+.footer-top .copyright {
+  display: flex;
+  gap: clamp(14px, 3vw, 24px);
+  flex-wrap: wrap;
+  font-size: 13.5px;
+}
+
+.footer-legal {
+  padding-top: 20px;
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.78);
+}
+
+/* Enlaces */
+.contact-footer a {
+  color: #fff;
+  text-decoration: none;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.contact-footer a:hover,
+.contact-footer a:focus {
+  opacity: 0.8;
+}
+
+/* Responsive: reduce padding en móviles muy pequeños */
+@media (max-width: 480px) {
+  .contact-footer {
+    padding: 20px 10px;
+  }
+}
+
+
+#politica-de-cookies table { border-collapse: collapse;  width: 100%;  margin-bottom: 1.5rem;}
+
+#politica-de-cookies th,
+#politica-de-cookies td { border: 1px solid #ccc; padding: 0.75em 1em; text-align: left; vertical-align: top;}
+#politica-de-cookies th { background-color: #000000; color:#fff; font-weight: 600;}
+
+
+/* ------------------------------------------------- */
+/*                    Programa                       */
+/* ------------------------------------------------- */
+
+#programa { background: #F2EFEA; }
+
+/* Pestañas Jornada 1 / Jornada 2 — solo CSS, sin JS (mismo patrón que el
+   checkbox del menú móvil). Los radios/labels los añade el tema en
+   decorateSubpageContent(), el contenido de las páginas no cambia. */
+.jornada-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid #D6D0C7;
+  margin: -8px 0 32px;
+}
+.jornada-tab-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.jornada-tab-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  margin-bottom: -1px;
+  border-bottom: 2px solid transparent;
+  color: var(--agj-muted);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  user-select: none;
+}
+#tab-jornada-1:checked ~ .jornada-tabs label[for="tab-jornada-1"],
+#tab-jornada-2:checked ~ .jornada-tabs label[for="tab-jornada-2"] {
+  color: var(--agj-ink);
+  font-weight: 600;
+  border-bottom-color: var(--agj-red);
+}
+
+/* Por defecto (sin JS/CSS avanzado) se muestran ambas jornadas; cuando el
+   navegador soporta el hack de radios, solo se ve la seleccionada. */
+#tab-jornada-1:checked ~ .jornada:nth-of-type(2),
+#tab-jornada-2:checked ~ .jornada:nth-of-type(1) {
+  display: none;
+}
+
+.jornada {
+  font-family: var(--agj-sans);
+  color: var(--agj-ink);
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  max-width: none;
+  margin: 0;
+  box-shadow: none;
+}
+
+.jornada tr, .jornada td, .jornada th,
+.jornada table td, .jornada table th { border: none; }
+
+.jornada h2 { font-family: var(--agj-serif); font-weight: 400; font-size: clamp(28px, 6vw, 40px); margin-bottom: 8px; }
+.jornada h2 strong{display: inline-block; color: var(--agj-ink); font-weight: 600; margin-right: 15px;}
+.jornada h2 em{display: inline-block; color: var(--agj-muted); font-style: normal;}
+
+/* La tabla se re-maqueta como timeline (hora | contenido) con CSS Grid,
+   sin tocar el HTML del bloque de tabla de WordPress. */
+.jornada table {
+  border: none;
+  border-top: none;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  display: block;
+}
+.jornada table tbody { display: block; }
+.jornada table tr {
+  display: grid;
+  grid-template-columns: clamp(64px, 14vw, 120px) 1fr;
+  gap: clamp(14px, 3vw, 32px);
+  padding: 22px 0;
+  border-top: 1px solid #DFD9D0;
+}
+.jornada table tr:last-child { border-bottom: 1px solid #DFD9D0; }
+.jornada td, .jornada table td { width: auto; padding: 0; vertical-align: top; font-size: 15px; display: block; }
+
+.jornada tr td:first-child {
+  white-space: nowrap;
+  word-break: keep-all;
+  color: var(--agj-red);
+  font-weight: 600;
+  font-size: 14px;
+  border-right: none;
+}
+
+.jornada td strong { display: block; font-weight: 700; margin-bottom: 0.2rem; font-size: medium;}
+
+/* Ponente/título de la charla: la primera línea en negrita+cursiva del bloque
+   de contenido hace de "h3", el resto son ponentes/moderador */
+.jornada table em strong {
+  color: var(--agj-ink);
+  font-family: var(--agj-serif);
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 12px;
+}
+.jornada table strong em {display: inline-block; font-size: small; color: var(--agj-muted); font-style: italic;}
+.jornada table em sup {font-size: small;}
+.jornada table em {
+  color: var(--agj-ink-soft);
+  font-size: 15px;
+  font-weight: 400;
+  font-style: italic;
+  margin-bottom: 0px;
+  display: block;
+}
+
+
+
+
+
+

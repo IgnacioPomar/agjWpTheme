@@ -51,11 +51,11 @@ CURRENT_THEME=$(
 )
 
 
-if [ "${CURRENT_THEME}" != "agjWpTheme" ]; then
+if [ "${CURRENT_THEME}" != "AGJ_Editorial" ]; then
 
-    echo "Activando agjWpTheme..."
+    echo "Activando AGJ_Editorial..."
 
-    wp theme activate agjWpTheme \
+    wp theme activate AGJ_Editorial \
         --path="${WP_PATH}" \
         --allow-root
 fi

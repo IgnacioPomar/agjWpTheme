@@ -32,6 +32,9 @@ services:
       # Código del tema
       - ../agjWpTheme:/var/www/html/wp-content/themes/agjWpTheme
 
+      # Código del tema AGJ_Editorial (variante en evaluación)
+      - ../AGJ_Editorial:/var/www/html/wp-content/themes/AGJ_Editorial
+
       # Código del plugin ZentryGate
       - ../ZentryGate:/var/www/html/wp-content/plugins/zentrygate
 
