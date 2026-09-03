@@ -2,7 +2,7 @@
  * Theme Name:        agjWpTheme
  * Theme URI:         https://agj.madrid
  * Description:       Tema exclusivo para la abogacía General de la Comunidad de Madrid.
- * Version:           1.0.7
+ * Version:           1.0.8
  * Author:            Ignacio Pomar Ballestero
  * License: © 2024 Alternative Experience. All rights reserved.
  * Tested up to:      6.5
@@ -321,11 +321,22 @@ main > .subpages > .container:nth-child(odd) {
 .subpages #hero h1 {font-size: revert;}
 #hero h1 em { opacity: 0.5;}
 
+/* Bloques nuevos de contenido (añadidos para AGJ_Editorial) sin estilo propio aquí: ocultarlos */
+#hero .hero-eyebrow,
+#hero .hero-meta {
+  display: none;
+}
+
 
 /* ------------------------------------------------- */
 /*                  Cuando y donde                  */
 /* ------------------------------------------------- */
 
+
+/* Bloque nuevo de contenido (añadido para AGJ_Editorial) sin estilo propio aquí: ocultarlo */
+#cuando-y-donde .info-box-row {
+  display: none;
+}
 
 #cuando-y-donde .mapouter,
 #cuando-y-donde .gmap_canvas {
