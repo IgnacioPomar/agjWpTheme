@@ -395,19 +395,86 @@ function decorateSubpageContent ($spId, $content, $postTitle = '')
 	}
 	else if ($spId === 'programa')
 	{
-		// Los radios deben quedar como hermanos directos de los bloques .jornada
-		// (no anidados en .jornada-tabs) para que el selector CSS ":checked ~ .jornada"
-		// pueda alcanzarlos con el combinador de hermanos.
-		$tabs = '<input type="radio" name="jornada-tab" id="tab-jornada-1" class="jornada-tab-input" checked>'
-			. '<input type="radio" name="jornada-tab" id="tab-jornada-2" class="jornada-tab-input">'
-			. '<div class="jornada-tabs">'
-			. '<label for="tab-jornada-1" class="jornada-tab-btn">Jornada 1 · Jue 1 oct</label>'
-			. '<label for="tab-jornada-2" class="jornada-tab-btn">Jornada 2 · Vie 2 oct</label>'
-			. '</div>';
+		// Identifica cada bloque .jornada del contenido real por su propio id
+		// (se lo asigna si no lo tiene) y saca el texto de su pestaña de su
+		// propio <h2>, para que la pestaña nunca se desincronice del contenido
+		// ni dependa de la posición (nada de :nth-of-type).
+		$jornadas = array ();
+		$index = 0;
+		$content = preg_replace_callback (
+			'/<div([^>]*\bclass="[^"]*\bjornada\b[^"]*"[^>]*)>(.*?)<\/div>/s',
+			function ($m) use (&$jornadas, &$index)
+			{
+				$index++;
+				$attrs = $m [1];
+				$inner = $m [2];
 
-		// Se inserta justo después del primer <h1>, delante de los bloques .jornada
-		$withTabs = preg_replace ('/(<h1[^>]*>.*?<\/h1>)/s', '$1' . $tabs, $content, 1);
-		if ($withTabs !== null) $content = $withTabs;
+				$id = '';
+				if (preg_match ('/\bid="([^"]+)"/', $attrs, $idMatch))
+				{
+					$id = preg_replace ('/[^A-Za-z0-9_-]/', '', $idMatch [1]);
+				}
+				if ($id === '')
+				{
+					$id = 'jornada-' . $index;
+					$attrs .= ' id="' . $id . '"';
+				}
+
+				$label = $id;
+				if (preg_match ('/<h2[^>]*>(.*?)<\/h2>/s', $inner, $h2Match))
+				{
+					$label = trim (wp_strip_all_tags ($h2Match [1]));
+				}
+
+				$jornadas [] = array ('id' => $id, 'label' => $label);
+
+				return '<div' . $attrs . '>' . $inner . '</div>';
+			},
+			$content
+		);
+
+		$tabs = '';
+		if (count ($jornadas) >= 2)
+		{
+			// Los radios deben quedar como hermanos directos de los bloques
+			// .jornada (no anidados en .programa-head/.jornada-tabs) para que el
+			// selector CSS ":checked ~ #id" pueda alcanzarlos con el combinador
+			// de hermanos; el <label for="..."> sí puede vivir en otro sitio.
+			$radios = '';
+			foreach ($jornadas as $i => $jornada)
+			{
+				$checked = $i === 0 ? ' checked' : '';
+				$radios .= '<input type="radio" name="jornada-tab" id="tab-' . esc_attr ($jornada ['id']) . '" class="jornada-tab-input"' . $checked . '>';
+			}
+
+			$tabs = '<div class="jornada-tabs">';
+			foreach ($jornadas as $jornada)
+			{
+				$tabs .= '<label for="tab-' . esc_attr ($jornada ['id']) . '" class="jornada-tab-btn">' . esc_html ($jornada ['label']) . '</label>';
+			}
+			$tabs .= '</div>';
+
+			// Al marcar la pestaña de una jornada, oculta el resto de jornadas
+			// (emparejadas por id, no por posición en el contenido).
+			$hideRules = array ();
+			foreach ($jornadas as $selected)
+			{
+				foreach ($jornadas as $other)
+				{
+					if ($other ['id'] !== $selected ['id'])
+					{
+						$hideRules [] = '#tab-' . $selected ['id'] . ':checked ~ #' . $other ['id'];
+					}
+				}
+			}
+			if ($hideRules) $tabs .= '<style>' . implode (",\n", $hideRules) . ' { display: none; }</style>';
+
+			// El antetítulo+título de la sección y las pestañas quedan juntos en
+			// una misma fila (título a la izquierda, pestañas a la derecha); los
+			// radios van sueltos delante para seguir siendo hermanos de .jornada.
+			$withHead = preg_replace ('/^((?:<p class="section-eyebrow">.*?<\/p>\s*)?<h1[^>]*>.*?<\/h1>)/s', $radios . '<div class="programa-head"><div class="programa-head-title">$1</div>' . $tabs . '</div>', $content, 1);
+			if ($withHead !== null) $content = $withHead;
+		}
 	}
 	else if ($spId === 'cuando-y-donde')
 	{
