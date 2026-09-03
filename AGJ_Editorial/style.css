@@ -335,6 +335,14 @@ main .container .content,
   margin: 0 auto; /* centra la imagen */
   max-width: 100%; /* asegura que no se salga del contenedor */
 }
+
+/* Reset del margen por defecto del navegador para <figure> (1em 40px):
+   sin esto, cualquier tabla (p.ej. la del programa) queda con 40px de
+   margen a cada lado además del padding de .content. */
+.subpages .container figure.wp-block-table {
+  margin: 0;
+  max-width: 100%;
+}
 .subpages .container .wp-block-image img {
   display: block;
   width: 100%;
@@ -343,16 +351,18 @@ main .container .content,
 }
 
 
-/* Adaptación responsive */
+/* Adaptación responsive: solo vertical — el horizontal ya lo pone
+   ".content" (padding: 0 var(--gutter)); ponerlo aquí también lo duplicaba,
+   comiéndose buena parte del ancho disponible en pantallas estrechas. */
 @media (max-width: 768px) {
   .subpages .container {
-    padding: 40px 15px;
+    padding: 40px 0;
   }
 }
 
 @media (max-width: 480px) {
   .subpages .container {
-    padding: 30px 10px;
+    padding: 30px 0;
   }
 }
 
