@@ -14,6 +14,21 @@ function AGJ_WpTheme_enqueue_styles ()
 add_action ('wp_enqueue_scripts', 'AGJ_WpTheme_enqueue_styles');
 
 
+/**
+ * Reskin del plugin ZentryGate (Bloques A y B, solo frontend) con la piel
+ * editorial del tema. Fichero propio -en vez de sumarse a style.css- para que
+ * sea fácil de identificar/retirar sin tocar el resto del tema. Las deps
+ * explícitas (en vez de confiar en el orden de registro de hooks) garantizan
+ * que se cargue después de la hoja del plugin y de la del propio tema, para
+ * poder sobreescribir sus clases sin !important.
+ */
+function AGJ_WpTheme_enqueue_zentrygate_reskin ()
+{
+	wp_enqueue_style ('AGJ_WpTheme-zentrygate', get_template_directory_uri () . '/assets/css/zentrygate.css', array ('AGJ_WpTheme-style', 'zentrygate-styles'), wp_get_theme ()->get ('Version'), 'all');
+}
+add_action ('wp_enqueue_scripts', 'AGJ_WpTheme_enqueue_zentrygate_reskin');
+
+
 function add_custom_templates ($templates)
 {
 	$templates ['page-contact-form.php'] = 'Formulario de contacto';
