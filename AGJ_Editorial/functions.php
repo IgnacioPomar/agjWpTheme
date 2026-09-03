@@ -455,10 +455,15 @@ function decorateSubpageContent ($spId, $content, $postTitle = '')
 			$tabs .= '</div>';
 
 			// Al marcar la pestaña de una jornada, oculta el resto de jornadas
-			// (emparejadas por id, no por posición en el contenido).
+			// (emparejadas por id, no por posición en el contenido) y resalta
+			// su propia pestaña. El label vive dentro de .programa-head, no
+			// como hermano directo del radio, así que hace falta el descendiente
+			// ".programa-head label[for=...]" en vez de un simple "~ label".
 			$hideRules = array ();
+			$activeRules = array ();
 			foreach ($jornadas as $selected)
 			{
+				$activeRules [] = '#tab-' . $selected ['id'] . ':checked ~ .programa-head label[for="tab-' . $selected ['id'] . '"]';
 				foreach ($jornadas as $other)
 				{
 					if ($other ['id'] !== $selected ['id'])
@@ -468,6 +473,7 @@ function decorateSubpageContent ($spId, $content, $postTitle = '')
 				}
 			}
 			if ($hideRules) $tabs .= '<style>' . implode (",\n", $hideRules) . ' { display: none; }</style>';
+			if ($activeRules) $tabs .= '<style>' . implode (",\n", $activeRules) . ' { color: var(--agj-ink); font-weight: 600; border-bottom-color: var(--agj-red); }</style>';
 
 			// El antetítulo+título de la sección y las pestañas quedan juntos en
 			// una misma fila (título a la izquierda, pestañas a la derecha); los

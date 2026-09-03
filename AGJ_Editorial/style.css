@@ -807,6 +807,7 @@ main .container .content,
   margin-bottom: 44px;
 }
 .programa-head-title { margin-bottom: 0; }
+.programa-head-title h1 { margin-bottom: 0; }
 
 /* Pestañas Jornada 1 / Jornada 2 — solo CSS, sin JS (mismo patrón que el
    checkbox del menú móvil). Los radios/labels los añade el tema en
@@ -833,12 +834,8 @@ main .container .content,
   cursor: pointer;
   user-select: none;
 }
-#tab-jornada-1:checked ~ .jornada-tabs label[for="tab-jornada-1"],
-#tab-jornada-2:checked ~ .jornada-tabs label[for="tab-jornada-2"] {
-  color: var(--agj-ink);
-  font-weight: 600;
-  border-bottom-color: var(--agj-red);
-}
+/* El resaltado de la pestaña activa se genera junto con las pestañas en
+   decorateSubpageContent(), emparejando por el id propio de cada bloque. */
 
 /* El mostrar/ocultar cada .jornada según la pestaña marcada se genera junto
    con las pestañas en decorateSubpageContent(), emparejando por el id propio
