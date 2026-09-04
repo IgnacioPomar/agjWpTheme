@@ -287,6 +287,7 @@
 	border-radius: 0;
 	box-shadow: none;
 	font-family: var(--agj-sans);
+	color: var(--agj-ink);
 }
 
 .zg-form-header {
@@ -377,6 +378,7 @@
 	background: #fff;
 	border: 1px solid var(--agj-line);
 	font-family: var(--agj-sans);
+	color: var(--agj-ink);
 }
 .zg-admin-page > h1 {
 	margin: 0;
@@ -565,11 +567,13 @@
 	border: 0;
 	box-shadow: none;
 	font-family: var(--agj-sans);
+	color: var(--agj-ink);
 }
 .zg-user-content {
 	max-width: 760px;
 	margin: 0 auto;
 	background: var(--agj-cream);
+	color: var(--agj-ink);
 	border: 1px solid var(--agj-line);
 	padding: clamp(20px, 4vw, 40px);
 	display: flex;

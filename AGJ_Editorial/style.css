@@ -2,7 +2,7 @@
  * Theme Name:        AGJ_Editorial
  * Theme URI:         https://agj.madrid
  * Description:       Tema exclusivo para la abogacía General de la Comunidad de Madrid.
- * Version:           0.1.0
+ * Version:           1.1.0
  * Author:            Ignacio Pomar Ballestero
  * License: © 2024 Alternative Experience. All rights reserved.
  * Tested up to:      6.5
@@ -650,6 +650,16 @@ main .container .content,
 #inscripcion {
   background: var(--agj-ink);
   color: var(--agj-cream);
+}
+
+/* La banda oscura es la maqueta estática. Cuando esta sección monta el
+   formulario real de ZentryGate (template-zentrygate.php), el reskin del
+   plugin (assets/css/zentrygate.css) está diseñado sobre superficie clara:
+   sus tarjetas son blancas/crema y sus textos usan --agj-ink. Sin esto, todo
+   lo que no fija color explícito hereda --agj-cream y queda invisible. */
+#inscripcion:has(.zentrygate-plugin-page) {
+  background: var(--agj-cream);
+  color: var(--agj-ink);
 }
 
 #inscripcion .content {
