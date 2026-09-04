@@ -78,6 +78,33 @@ function currentCommit(string $repository): string {
     return trim($output[0]);
 }
 
+function commitOnlyChangesVersion(string $repository, string $from, string $to, string $projectPath, bool $isPlugin): bool {
+    $command = 'git -C ' . escapeshellarg($repository)
+        . ' diff --unified=0 --no-ext-diff ' . escapeshellarg($from) . ' ' . escapeshellarg($to)
+        . ' -- ' . escapeshellarg($projectPath);
+    exec($command, $lines, $status);
+    if ($status !== 0) {
+        fwrite(STDERR, "Error: no se pudo comparar los commits de $projectPath\n");
+        exit(1);
+    }
+
+    $hasVersionChange = false;
+    foreach ($lines as $line) {
+        if (str_starts_with($line, '+++') || str_starts_with($line, '---') || !preg_match('/^[+-]/', $line)) {
+            continue;
+        }
+
+        $isHeaderVersion = preg_match('/^[+-]\s*\*?\s*Version:\s*\d+\.\d+\.\d+\s*$/', $line) === 1;
+        $isPluginConstant = $isPlugin && preg_match("/^[+-]\s*define\s*\(\s*'ZENTRYGATE_VERSION_(?:DB|PLUGIN)'\s*,\s*'\d+\.\d+\.\d+'\s*\);\s*$/", $line) === 1;
+        if (!$isHeaderVersion && !$isPluginConstant) {
+            return false;
+        }
+        $hasVersionChange = true;
+    }
+
+    return $hasVersionChange;
+}
+
 if (!class_exists('ZipArchive')) {
     fwrite(STDERR, "Error: la extensión ZipArchive no está disponible.\n");
     exit(1);
@@ -94,12 +121,22 @@ foreach ($projects as $project) {
         ? "$source/zentrygate.php"
         : "$source/style.css";
     $repository = $project === 'ZentryGate' ? $source : $root;
+    $projectPath = $project === 'ZentryGate' ? '.' : $project;
     $commit = currentCommit($repository);
     $commitFile = "$destination/$project.commit";
     $lastCommit = is_file($commitFile) ? trim((string) file_get_contents($commitFile)) : '';
 
     if ($lastCommit === $commit) {
         echo "Sin cambios de commit: exchange/$project.commit\n";
+        continue;
+    }
+
+    if ($lastCommit !== '' && commitOnlyChangesVersion($repository, $lastCommit, $commit, $projectPath, $project === 'ZentryGate')) {
+        if (file_put_contents($commitFile, $commit . PHP_EOL) === false) {
+            fwrite(STDERR, "Error: no se pudo guardar $commitFile\n");
+            exit(1);
+        }
+        echo "Commit solo de versión: exchange/$project.commit actualizado\n";
         continue;
     }
 
