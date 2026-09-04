@@ -413,10 +413,23 @@ function decorateSubpageContent ($spId, $content, $postTitle = '')
 	{
 		// Envuelve antetítulo+título en una columna y los párrafos en otra,
 		// para el layout de 2 columnas del diseño (título fijo a la izquierda).
-		// Es maquetación pura: no cambia ni una palabra del contenido.
-		if (preg_match ('/^(.*<h1[^>]*>.*?<\/h1>)(.*)$/s', $content, $m))
+		// El primer párrafo (la entradilla) acompaña al título en la columna
+		// izquierda. Es maquetación pura: no cambia ni una palabra del contenido.
+		if (preg_match ('/^(.*?<h1[^>]*>.*?<\/h1>)(.*)$/s', $content, $m))
 		{
-			$content = '<div class="info-head">' . $m [1] . '</div><div class="info-body">' . $m [2] . '</div>';
+			$head = $m [1];
+			$rest = $m [2];
+
+			// La entradilla es el primer párrafo con texto: los párrafos vacíos
+			// que wpautop deja a veces tras el h1 se quedan donde estaban.
+			if (preg_match ('/^((?:\s*<p[^>]*>(?:\s|&nbsp;|<br\s*\/?>)*<\/p>)*)(\s*<p[^>]*>.*?<\/p>)(.*)$/s', $rest, $p)
+				&& trim (str_replace ('&nbsp;', '', wp_strip_all_tags ($p [2]))) !== '')
+			{
+				$head .= '<div class="info-lead">' . trim ($p [2]) . '</div>';
+				$rest = $p [1] . $p [3];
+			}
+
+			$content = '<div class="info-head">' . $head . '</div><div class="info-body">' . $rest . '</div>';
 		}
 	}
 	else if ($spId === 'programa')

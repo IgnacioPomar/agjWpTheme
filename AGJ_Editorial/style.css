@@ -2,7 +2,7 @@
  * Theme Name:        AGJ_Editorial
  * Theme URI:         https://agj.madrid
  * Description:       Tema exclusivo para la abogacía General de la Comunidad de Madrid.
- * Version:           1.1.0
+ * Version:           1.1.1
  * Author:            Ignacio Pomar Ballestero
  * License: © 2024 Alternative Experience. All rights reserved.
  * Tested up to:      6.5
@@ -106,6 +106,15 @@ header {
    header-scroll.js). Reaparece con cualquier scroll hacia arriba, ver JS. */
 header.site-header--hidden {
   transform: translateY(-100%);
+}
+
+/* En escritorio (menú horizontal, >1100px) la cabecera se queda siempre
+   visible: el ocultado al hacer scroll solo se aplica en móvil/tablet,
+   donde el espacio vertical es escaso. */
+@media (min-width: 1101px) {
+  header.site-header--hidden {
+    transform: none;
+  }
 }
 
 /* Con el menú móvil abierto, la cabecera nunca debe ocultarse: si no, el
@@ -512,6 +521,17 @@ main .container .content,
   line-height: 1.15;
 }
 
+/* Entradilla: primer párrafo del cuerpo, colocado bajo el título en la
+   columna izquierda (ver decorateSubpageContent en functions.php). */
+#informacion .info-head .info-lead p {
+  margin: 20px 0 0;
+  font-family: var(--agj-serif);
+  font-size: clamp(18px, 4vw, 21px);
+  line-height: 1.55;
+  color: var(--agj-ink);
+  max-width: 46ch;
+}
+
 #informacion .info-body {
   display: flex;
   flex-direction: column;
@@ -524,11 +544,10 @@ main .container .content,
   font-size: 16px;
   line-height: 1.75;
 }
-#informacion .info-body p:first-child {
-  font-family: var(--agj-serif);
-  font-size: clamp(18px, 4vw, 21px);
-  line-height: 1.55;
-  color: var(--agj-ink);
+/* Párrafos vacíos que a veces deja el editor: si no, suman un hueco de 24px
+   (gap del flex) en medio del texto. Misma guarda que en #inscripcion. */
+#informacion .info-body p:empty {
+  display: none;
 }
 
 /* El título "pegado" (sticky) al hacer scroll solo tiene sentido cuando hay
