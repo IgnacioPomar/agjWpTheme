@@ -105,6 +105,18 @@ function commitOnlyChangesVersion(string $repository, string $from, string $to, 
     return $hasVersionChange;
 }
 
+function commitAffectsProject(string $repository, string $from, string $to, string $projectPath): bool {
+    $command = 'git -C ' . escapeshellarg($repository)
+        . ' diff --name-only --no-ext-diff ' . escapeshellarg($from) . ' ' . escapeshellarg($to)
+        . ' -- ' . escapeshellarg($projectPath);
+    exec($command, $files, $status);
+    if ($status !== 0) {
+        fwrite(STDERR, "Error: no se pudo comprobar los cambios de $projectPath\n");
+        exit(1);
+    }
+    return $files !== [];
+}
+
 if (!class_exists('ZipArchive')) {
     fwrite(STDERR, "Error: la extensión ZipArchive no está disponible.\n");
     exit(1);
@@ -128,6 +140,15 @@ foreach ($projects as $project) {
 
     if ($lastCommit === $commit) {
         echo "Sin cambios de commit: exchange/$project.commit\n";
+        continue;
+    }
+
+    if ($lastCommit !== '' && !commitAffectsProject($repository, $lastCommit, $commit, $projectPath)) {
+        if (file_put_contents($commitFile, $commit . PHP_EOL) === false) {
+            fwrite(STDERR, "Error: no se pudo guardar $commitFile\n");
+            exit(1);
+        }
+        echo "Sin cambios en $project/: exchange/$project.commit actualizado\n";
         continue;
     }
 
