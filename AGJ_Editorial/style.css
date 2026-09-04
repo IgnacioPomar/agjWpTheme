@@ -669,6 +669,12 @@ main .container .content,
   align-items: center;
 }
 
+/* El grid de dos columnas es para la maqueta (texto + tarjeta). El plugin
+   trae su propia maquetación, así que su wrapper vuelve a flujo normal. */
+#inscripcion .content.zentrygate-plugin-page {
+  display: block;
+}
+
 #inscripcion .content > .section-eyebrow {
   grid-column: 1;
   color: #E58C93;
